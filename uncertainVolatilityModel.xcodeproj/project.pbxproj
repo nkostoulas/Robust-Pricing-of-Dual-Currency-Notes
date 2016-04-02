@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F180AC51CAFCB0600065022 /* BS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F180AC31CAFCB0600065022 /* BS.cpp */; settings = {ASSET_TAGS = (); }; };
+		4F180AC71CAFDA3B00065022 /* BSB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F180AC61CAFDA3B00065022 /* BSB.cpp */; settings = {ASSET_TAGS = (); }; };
+		4F180AC91CAFDC1E00065022 /* TrinomialTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F180AC81CAFDC1E00065022 /* TrinomialTree.cpp */; settings = {ASSET_TAGS = (); }; };
 		4FF65F3F1CAE636F00A6E230 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF65F3E1CAE636F00A6E230 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -23,8 +26,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4F180AC31CAFCB0600065022 /* BS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BS.cpp; sourceTree = "<group>"; };
+		4F180AC41CAFCB0600065022 /* BS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BS.hpp; sourceTree = "<group>"; };
+		4F180AC61CAFDA3B00065022 /* BSB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BSB.cpp; sourceTree = "<group>"; };
+		4F180AC81CAFDC1E00065022 /* TrinomialTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrinomialTree.cpp; sourceTree = "<group>"; };
 		4FF65F3B1CAE636F00A6E230 /* uncertainVolatilityModel */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = uncertainVolatilityModel; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FF65F3E1CAE636F00A6E230 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4FF65F461CAE718200A6E230 /* TrinomialTree.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TrinomialTree.hpp; sourceTree = "<group>"; };
+		4FF65F4A1CAEA19200A6E230 /* BSB.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = BSB.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +67,12 @@
 			isa = PBXGroup;
 			children = (
 				4FF65F3E1CAE636F00A6E230 /* main.cpp */,
+				4F180AC81CAFDC1E00065022 /* TrinomialTree.cpp */,
+				4FF65F461CAE718200A6E230 /* TrinomialTree.hpp */,
+				4F180AC61CAFDA3B00065022 /* BSB.cpp */,
+				4FF65F4A1CAEA19200A6E230 /* BSB.hpp */,
+				4F180AC31CAFCB0600065022 /* BS.cpp */,
+				4F180AC41CAFCB0600065022 /* BS.hpp */,
 			);
 			path = uncertainVolatilityModel;
 			sourceTree = "<group>";
@@ -118,6 +133,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F180AC71CAFDA3B00065022 /* BSB.cpp in Sources */,
+				4F180AC91CAFDC1E00065022 /* TrinomialTree.cpp in Sources */,
+				4F180AC51CAFCB0600065022 /* BS.cpp in Sources */,
 				4FF65F3F1CAE636F00A6E230 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +253,7 @@
 				4FF65F441CAE636F00A6E230 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
