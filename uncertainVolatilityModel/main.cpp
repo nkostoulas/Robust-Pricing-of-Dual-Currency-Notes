@@ -30,7 +30,7 @@ int main(int argc, const char * argv[]) {
     double T = 1; //years
     double N = 2; //periods per year
     TrinomialTree tree(T, N, smax, smin, r, S);
-    //tree.printTree();
+    tree.printTree();
     
     int n = N*timeToExpiry; //number of periods
     double dt = T/N;        //percentage of year for each period
