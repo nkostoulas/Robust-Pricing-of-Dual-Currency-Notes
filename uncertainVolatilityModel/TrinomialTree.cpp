@@ -29,7 +29,6 @@ void TrinomialTree::printTree(){
          }
          std::cout<<"\n";
      }
-    
 }
 
 double* TrinomialTree::nodeProbability(){

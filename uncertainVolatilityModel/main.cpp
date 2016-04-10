@@ -8,10 +8,12 @@
 
 #include "callSpreadExample.hpp"
 #include "calendarSpreadExample.hpp"
+#include "stochasticVolatilityExample.hpp"
 
 int main(int argc, const char * argv[]) {
-    callSpreadExample();
+    //callSpreadExample();
     //calendarSpreadExample();
+    stochasticVolatilityExample();
 }
 
 

@@ -42,7 +42,7 @@ void callSpreadExample(){
         for(int i = 0; i < 2*n+1; ++i)
         F[i] = new double[n+1];
 
-        // call spread payoff structure
+        //****** CALL SPREAD PAYOFF STRUCTURE ******
         for (int i=n; i>=0; i--){
             for (int j=0; j<2*i+1; j++){
                 if (i==n){
@@ -95,7 +95,8 @@ void callSpreadExample(){
         std::cout<<bsb.lowerBound()<<"  ";
         std::cout<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<" ";
         std::cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
-        std::cout<<midBuy.callOptionPrice()-midSell.callOptionPrice()<<" \n";
+        std::cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
+        std::cout<<"\n";
      
     }
 }

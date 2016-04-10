@@ -17,8 +17,8 @@
 
 class BSB{
     double dt, sigmaMax, sigmaMin, r;
-    double** F;
-    int n;
+    double** F; //payoff 2D array based on trinomial tree implementation
+    int n;  //number of periods
     const double lowerP = sigmaMin*sigmaMin/(2*sigmaMax*sigmaMax);
     const double upperP = 0.5;
     const double step = (upperP - lowerP)/MRT_STEPS;
