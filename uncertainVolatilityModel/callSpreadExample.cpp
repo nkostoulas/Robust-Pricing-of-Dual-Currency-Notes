@@ -5,17 +5,23 @@
 //  Created by Nick Kostoulas on 02/04/16.
 //  Copyright © 2016 Nick Kostoulas. All rights reserved.
 //
-#include <iostream>
-#include <cmath>
-#include "TrinomialTree.hpp"
-#include "BSB.hpp"
-#include "BS.hpp"
 #include "callSpreadExample.hpp"
 
 void callSpreadExample(){
-    int smatr[15] = {55, 60, 65, 70, 75, 80, 85, 90, 95 ,100, 105, 110, 115, 120, 125};
-
-    for (int sind=0; sind<=14; sind++){
+    ofstream bsbAsk("./data/bsbAskCall.txt");
+    ofstream bsbBid("./data/bsbBidCall.txt");
+    ofstream bsAsk("./data/bsAskCall.txt");
+    ofstream bsBid("./data/bsBidCall.txt");
+    ofstream bsMid("./data/bsMidCall.txt");
+    ofstream bsLow("./data/bsLowCall.txt");
+    ofstream bsHigh("./data/bsHighCall.txt");
+    ofstream prices("./data/pricesCall.txt");
+    
+    int smatr[40] = {0, 10, 20, 30, 40, 50, 55, 60, 65, 70, 72, 75, 78, 80, 82, 85,
+                    88, 90, 92, 95, 98, 100, 105, 110, 115, 120, 125, 130, 135, 140,
+                    145, 150, 155, 160, 165, 170, 175, 180, 190, 200 };
+    
+    for (int sind=0; sind<40; sind++){
         
         //*********** Basic Definitions *************************//
         double r = 0.05;    //risk free interest rate
@@ -65,12 +71,6 @@ void callSpreadExample(){
 
         //upper and lower value of example using BSB
         BSB bsb(n, dt, smax, smin, r, F);
-        
-        /*
-        std::cout<<"For an initial stock price "<<S<<":"<<"\n";
-        std::cout<<"W+ value is "<<bsb.upperBound()<<"\n";
-        std::cout<<"W- value is "<<bsb.lowerBound()<<"\n";
-        */
 
         //****************** Black Scholes spread pricing ********//
 
@@ -83,20 +83,32 @@ void callSpreadExample(){
         BS upperSell(sellStrike, S, timeToExpiry, timeToEval, r, smax);
         BS lowerSell(sellStrike, S, timeToExpiry, timeToEval, r, smin);
         BS midSell(sellStrike, S, timeToExpiry, timeToEval, r, smid);
-
-        /*
-        std::cout<<"Upper buy - lower sell is "<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<"\n";
-        std::cout<<"Lower buy - upper sell is "<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"\n";
-        std::cout<<"Mid buy - mid sell is "<<midBuy.callOptionPrice()-midSell.callOptionPrice()<<"\n";
-         */
         
-        std::cout<<S<<"   ";
-        std::cout<<bsb.upperBound()<<" ";
-        std::cout<<bsb.lowerBound()<<"  ";
-        std::cout<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<" ";
-        std::cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
-        std::cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
-        std::cout<<"\n";
+        prices << S << "\n";
+        bsbAsk << bsb.upperBound() << "\n";
+        bsbBid << bsb.lowerBound() << "\n";
+        bsAsk << upperBuy.callOptionPrice() - lowerSell.callOptionPrice() << "\n";
+        bsBid << lowerBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
+        bsMid << midBuy.callOptionPrice() - midSell.callOptionPrice() << "\n";
+        bsLow << lowerBuy.callOptionPrice() - lowerSell.callOptionPrice()<< "\n";
+        bsHigh << upperBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
+        /*
+        cout<<S<<"   ";
+        cout<<bsb.upperBound()<<" ";
+        cout<<bsb.lowerBound()<<"  ";
+        cout<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<" ";
+        cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
+        cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
+        cout<<"\n";
+         */
      
     }
+    bsbAsk.close();
+    bsbBid.close();
+    bsAsk.close();
+    bsBid.close();
+    bsMid.close();
+    bsLow.close();
+    bsHigh.close();
+    prices.close();
 }

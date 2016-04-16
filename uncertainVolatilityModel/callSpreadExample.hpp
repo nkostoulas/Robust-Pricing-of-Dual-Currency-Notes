@@ -10,6 +10,14 @@
 #define callSpreadExample_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include "TrinomialTree.hpp"
+#include "BSB.hpp"
+#include "BS.hpp"
+
+using namespace std;
 
 void callSpreadExample();
 

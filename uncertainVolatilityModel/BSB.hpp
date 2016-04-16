@@ -13,7 +13,7 @@
 #include <cmath>
 #include <iostream>
 
-#define MRT_STEPS 50
+#define MRT_STEPS 1
 
 class BSB{
     double dt, sigmaMax, sigmaMin, r;
