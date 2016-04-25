@@ -18,10 +18,14 @@ class BS{
     
 public:
     BS(double strP, double underlP, double expT, double currT, double r, double sigma);
-    double callOptionPrice();
-    double putOptionPrice();
-    double normalCDF(double x);
-    double normalCDF2(double x);
+    BS(const BS &source);
+    virtual ~BS();
+    
+    double callOptionPrice() const;
+    double putOptionPrice() const;
+    double normalCDF(double x) const;
+    double normalCDF2(double x) const;
+    
 };
 
 #endif /* BS_hpp */

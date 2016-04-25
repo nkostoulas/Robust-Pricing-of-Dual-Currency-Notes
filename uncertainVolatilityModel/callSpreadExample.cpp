@@ -17,11 +17,11 @@ void callSpreadExample(){
     ofstream bsHigh("./data/bsHighCall.txt");
     ofstream prices("./data/pricesCall.txt");
     
-    int smatr[40] = {0, 10, 20, 30, 40, 50, 55, 60, 65, 70, 72, 75, 78, 80, 82, 85,
+    array<int,40> smatr= {0, 10, 20, 30, 40, 50, 55, 60, 65, 70, 72, 75, 78, 80, 82, 85,
                     88, 90, 92, 95, 98, 100, 105, 110, 115, 120, 125, 130, 135, 140,
                     145, 150, 155, 160, 165, 170, 175, 180, 190, 200 };
     
-    for (int sind=0; sind<40; sind++){
+    for (int sind=0; sind<smatr.size(); sind++){
         
         //*********** Basic Definitions *************************//
         double r = 0.05;    //risk free interest rate
@@ -42,32 +42,33 @@ void callSpreadExample(){
 
         int n = N*timeToExpiry; //number of periods
         double dt = T/N;        //percentage of year for each period
-
-        double** F = new double*[2*n+1];    //payoff structure matrix
+        
+        double** F = new double*[n+1];
         double price = 0;
-        for(int i = 0; i < 2*n+1; ++i)
-        F[i] = new double[n+1];
-
+        for(int i = 0; i < n+1; ++i)
+            F[i] = new double[2*i+1];
+        
         //****** CALL SPREAD PAYOFF STRUCTURE ******
         for (int i=n; i>=0; i--){
             for (int j=0; j<2*i+1; j++){
                 if (i==n){
                     price = tree.nodePrice(i, j-i);
                     if(price>buyStrike && price<=sellStrike){
-                        F[j][i] = price - buyStrike;
+                        F[i][j] = price - buyStrike;
                     }
                     else if(price>sellStrike){
-                        F[j][i] = sellStrike - buyStrike;
+                        F[i][j] = sellStrike - buyStrike;
                     }else{
-                        F[j][i] = 0;
+                        F[i][j] = 0;
                     }
                 }
                 else{
-                    F[j][i] = 0;
+                    F[i][j] = 0;
                 }
             }
-            
         }
+        
+        
 
         //upper and lower value of example using BSB
         BSB bsb(n, dt, smax, smin, r, F);
@@ -92,6 +93,7 @@ void callSpreadExample(){
         bsMid << midBuy.callOptionPrice() - midSell.callOptionPrice() << "\n";
         bsLow << lowerBuy.callOptionPrice() - lowerSell.callOptionPrice()<< "\n";
         bsHigh << upperBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
+        
         /*
         cout<<S<<"   ";
         cout<<bsb.upperBound()<<" ";
@@ -100,7 +102,11 @@ void callSpreadExample(){
         cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
         cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
         cout<<"\n";
-         */
+        */
+        for(int i = 0; i < n+1; ++i)
+            delete [] F[i];
+        delete [] F;
+        
      
     }
     bsbAsk.close();

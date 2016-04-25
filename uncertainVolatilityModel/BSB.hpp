@@ -16,6 +16,7 @@
 #define MRT_STEPS 1
 
 class BSB{
+private:
     double dt, sigmaMax, sigmaMin, r;
     double** F; //payoff 2D array based on trinomial tree implementation
     int n;  //number of periods
@@ -23,15 +24,18 @@ class BSB{
     const double upperP = 0.5;
     const double step = (upperP - lowerP)/MRT_STEPS;
     
-public:
+public:    
     BSB(int n, double dt, double smax, double smin, double r, double** F);
-    double upperBound();
-    double lowerBound();
-    double supremum(double U, double M, double D);
-    double infinum(double U, double M, double D);
-    double probU(double p);
-    double probM(double p);
-    double probD(double p);
+    BSB(const BSB &source);
+    virtual ~BSB();
+    
+    double upperBound() const;
+    double lowerBound() const;
+    double supremum(double U, double M, double D) const;
+    double infinum(double U, double M, double D) const;
+    inline double probU(double p) const{return p*(1-sigmaMax*sqrt(dt)/2);};
+    inline double probM(double p) const{return 1 - 2*p;};
+    inline double probD(double p) const{return p*(1+sigmaMax*sqrt(dt)/2);};
 };
 
 

@@ -16,11 +16,15 @@ TrinomialTree::TrinomialTree(double T_, double N_, double smax, double smin, dou
     lower = (int)(p_lower*1e6);
 }
 
-double TrinomialTree::nodePrice(int n, int j){
+TrinomialTree::~TrinomialTree(){
+    
+}
+
+double TrinomialTree::nodePrice(int n, int j) const{
     return So*exp(j*sigmaMax*sqrt(dt)+n*r*dt);
 }
 
-void TrinomialTree::printTree(){
+void TrinomialTree::printTree() const{
     
      std::cout<<"Printing trinomial tree \n";
      for (int i=1; i<=N; i++) {

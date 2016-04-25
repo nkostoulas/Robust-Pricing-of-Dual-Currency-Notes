@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <array>
 #include <cmath>
 #include "TrinomialTree.hpp"
 #include "BSB.hpp"

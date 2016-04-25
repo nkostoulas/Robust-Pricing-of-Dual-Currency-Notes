@@ -20,8 +20,11 @@ class TrinomialTree {
     
 public:
     TrinomialTree(double T, double N, double smax, double smin, double r, double S);
-    double nodePrice(int n, int j);
-    void printTree();
+    TrinomialTree(const TrinomialTree &source);
+    virtual ~TrinomialTree();
+    
+    double nodePrice(int n, int j) const;
+    void printTree() const;
     double* nodeProbability();
 };
 

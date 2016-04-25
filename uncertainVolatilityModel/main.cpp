@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
     stochasticVolatilityExample();
     clock_t end = clock();
     double elapsed_secs = (double)(end - begin);
-    cout <<  elapsed_secs/ CLOCKS_PER_SEC;
+    cout <<  elapsed_secs/ CLOCKS_PER_SEC << "\t";
 }
 
 

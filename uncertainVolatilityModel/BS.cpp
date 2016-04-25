@@ -14,7 +14,11 @@ BS::BS(double strP, double underlP, double expT, double currT, double r, double 
     
 }
 
-double BS::normalCDF(double x){
+BS::~BS(){
+    
+}
+
+double BS::normalCDF(double x) const{
     double a1 =  0.254829592;
     double a2 = -0.284496736;
     double a3 =  1.421413741;
@@ -33,7 +37,7 @@ double BS::normalCDF(double x){
     return 0.5*(1.0 + sign*y);
 }
 
-double BS::normalCDF2(double x){
+double BS::normalCDF2(double x) const{
     int neg = (x<0);
     if(neg) x *= -1;
     double k(1/(1+0.2316419*x));
@@ -43,7 +47,7 @@ double BS::normalCDF2(double x){
     
 }
 
-double BS::callOptionPrice(){
+double BS::callOptionPrice() const{
     
     double cdfn1 = normalCDF(d1);
     double cdfn2 = normalCDF(d2);
@@ -51,7 +55,7 @@ double BS::callOptionPrice(){
     return S*cdfn1 - E*exp(-r*(T-t))*cdfn2;
 }
 
-double BS::putOptionPrice(){
+double BS::putOptionPrice() const{
     
     double cdfn1 = normalCDF(-d1);
     double cdfn2 = normalCDF(-d2);

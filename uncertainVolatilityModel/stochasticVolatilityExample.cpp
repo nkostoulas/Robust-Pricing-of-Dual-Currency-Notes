@@ -10,7 +10,7 @@
 
 void stochasticVolatilityExample(){
     //General Parameters
-    const int Npath = 10000;
+    const int Npath = 1000;
     const int Nsim = 10000;
     const int Nhedge = 101;
     
@@ -72,34 +72,35 @@ void stochasticVolatilityExample(){
             stockSim[i] = stockSim[i-1] + miu*dtSIM*stockSim[i-1] + volSim[i-1]*randNorm2*sqrt(dtSIM)*stockSim[i-1];
             //stockSimConstVol[i] = stockSimConstVol[i-1] + miu*dtSIM*stockSimConstVol[i-1] + sigmaAvg*randNorm2*sqrt(dtSIM)*stockSimConstVol[i-1];
             
-            if(volSim[i]>0.4 || volSim[i]<0.1){
+            if(volSim[i]>smax || volSim[i]<smin){
                 count++;
             }
             
-            //NO HEDGE AT TIME 0
-            if((i+1)%step==0 && i!=Nsim-1){ //
+           
+            if((i+1)%step==0 && i!=Nsim-1){ //NO HEDGE AT TIME 0 and T
                 if(d==1){
                     TrinomialTree tree(1, per, smax, smin, r, stockSim[i]);
                     
-                    double** F = new double*[2*per+1];    //payoff structure matrix
+                    double** F = new double*[per+1];
                     double price = 0;
-                    for(int i = 0; i < 2*per+1; ++i)
-                        F[i] = new double[per+1];
+                    for(int i = 0; i < per+1; ++i)
+                        F[i] = new double[2*i+1];
+                    
                     for (int i=per; i>=0; i--){
                         for (int j=0; j<2*i+1; j++){
                             if (i==per){
                                 price = tree.nodePrice(i, j-i);
                                 if(price>buyStrike && price<=sellStrike){
-                                    F[j][i] = price - buyStrike;
+                                    F[i][j] = price - buyStrike;
                                 }
                                 else if(price>sellStrike){
-                                    F[j][i] = sellStrike - buyStrike;
+                                    F[i][j] = sellStrike - buyStrike;
                                 }else{
-                                    F[j][i] = 0;
+                                    F[i][j] = 0;
                                 }
                             }
                             else{
-                                F[j][i] = 0;
+                                F[i][j] = 0;
                             }
                         }
                     }
@@ -116,7 +117,10 @@ void stochasticVolatilityExample(){
                     }
 
                     myfile<<bsbLower_ - bsbLower<<"\n";
-
+                    
+                    for(int i = 0; i < per+1; ++i)
+                        delete [] F[i];
+                    delete [] F;
                     
                     per--;
                     timeToExp -= dtHEDGE;
@@ -146,117 +150,5 @@ void stochasticVolatilityExample(){
         }
     }
     cout<<(double)100*count/(Npath*Nsim)<<"%"<<"\t";
-    
-    /*
-    ofstream myfile;
-    myfile.open ("/Users/nkostoulas/Documents/xcode_/uncertainVolatilityModel/uncertainVolatilityModel/example.txt");
-
-    //Pricing parameters
-    double r = 0.05;    //risk free interest rate
-    double smax = 0.4;  //maximum volatility
-    double smin = 0.1;  //minimum volatility
-    
-    double buyStrike = 90;      // strike price of call option bought
-    double sellStrike = 100;    // strike price of call option sold
-    int per = Nhedge;
-    double dt = T/Nhedge;
-    double timeToExp = 0.5;
-    
-    double bsbUpper = 0.0;
-    double bsbLower = 0.0;
-    
-    
-    //** Hedging
-    
-    for(int k=0; k<1; k++){
-        if(k%Nhedge==0){
-            per = Nhedge;
-            timeToExp = T;
-        }
-        switch (4){
-            case 1:
-            {
-                TrinomialTree tree(1, per, smax, smin, r, stockSim[k]);
-                
-                double** F = new double*[2*per+1];    //payoff structure matrix
-                double price = 0;
-                for(int i = 0; i < 2*per+1; ++i)
-                    F[i] = new double[per+1];
-                for (int i=per; i>=0; i--){
-                    for (int j=0; j<2*i+1; j++){
-                        if (i==per){
-                            price = tree.nodePrice(i, j-i);
-                            if(price>buyStrike && price<=sellStrike){
-                                F[j][i] = price - buyStrike;
-                            }
-                            else if(price>sellStrike){
-                                F[j][i] = sellStrike - buyStrike;
-                            }else{
-                                F[j][i] = 0;
-                            }
-                        }
-                        else{
-                            F[j][i] = 0;
-                        }
-                    }
-                }
-                
-                
-                BSB bsb(per, Dt, smax, smin, r, F);
-                bsbUpper = bsb.upperBound();
-                bsbLower = bsb.lowerBound();
-                BS currBuy(buyStrike, stockSim[k], timeToExp, 0, r, volSim[k]);
-                BS currSell(sellStrike, stockSim[k], timeToExp, 0, r, volSim[k]);
-                double currPrice = currBuy.callOptionPrice() - currSell.callOptionPrice();
-                if(volSim[k]>(smax-smin)/2){
-                    myfile<<bsbUpper - currPrice<<"\n";
-                }else{
-                    myfile<<currPrice - bsbLower<<"\n";
-                }
-                per--;
-                timeToExp -= dt;
-     
-                break;
-            }
-            case 2:
-            {
-                // comparison of BS with constant and stoch volatility
-                BS currBuy(buyStrike, stockSim[k], timeToExp, 0, r, volSim[k]);
-                BS currSell(sellStrike, stockSim[k], timeToExp, 0, r, volSim[k]);
-                BS avgBuy(buyStrike, stockSim[k], timeToExp, 0, r, sigmaAvg);
-                BS avgSell(sellStrike, stockSim[k], timeToExp, 0, r, sigmaAvg);
-                per--;
-                timeToExp -= dt;
-
-                double currPrice = currBuy.callOptionPrice() - currSell.callOptionPrice();
-                double avgPrice = avgBuy.callOptionPrice() - avgSell.callOptionPrice();
-                myfile<<avgPrice - currPrice<<"\n";
-                break;
-            }
-            case 3:
-            {
-                BS currBuy(buyStrike, stockSimConstVol[k], timeToExp, 0, r, volSim[k]);
-                BS currSell(sellStrike, stockSimConstVol[k], timeToExp, 0, r, volSim[k]);
-                BS avgBuy(buyStrike, stockSimConstVol[k], timeToExp, 0, r, sigmaAvg);
-                BS avgSell(sellStrike, stockSimConstVol[k], timeToExp, 0, r, sigmaAvg);
-                per--;
-                timeToExp -= dt;
-                
-                double currPrice = currBuy.callOptionPrice() - currSell.callOptionPrice();
-                double avgPrice = avgBuy.callOptionPrice() - avgSell.callOptionPrice();
-                myfile<<avgPrice - currPrice<<"\n";
-                break;
-                
-                
-            }
-            case 4:
-                
-            break;
-        }
-    }
- 
-    myfile.close();
-     */
-    
 }
 
