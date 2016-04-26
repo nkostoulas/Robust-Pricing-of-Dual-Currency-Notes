@@ -10,16 +10,16 @@
 
 void stochasticVolatilityExample(){
     //General Parameters
-    const int Npath = 1000;
-    const int Nsim = 10000;
-    const int Nhedge = 101;
+    const int Npath = 1000; //number of different stock/vol paths
+    const int Nsim = 10000; //number of simulations in each path
+    const int Nhedge = 101; //number of hedges in a path
     
-    double dtSIM = pow(Nsim,-1);
+    double dtSIM = pow(Nsim,-1); //dt for stock/vol simulation
     
-    double T = 0.5;             //time horizon
-    int NsimYear = Nhedge/T;        //sim per year
-    double dtHEDGE = pow(NsimYear,-1);
-    int step = Nsim/(Nhedge-1);
+    double T = 0.5;             //time horizon of hedging
+    int NsimYear = Nhedge/T;        //hedges per year
+    double dtHEDGE = pow(NsimYear,-1);//dt for hedging
+    int step = Nsim/(Nhedge-1);//number of stock simulations between each hedge
     
     double randNorm = 0.0, randNorm2 = 0.0;
     std::mt19937 generator((unsigned int)time(NULL));
@@ -41,10 +41,10 @@ void stochasticVolatilityExample(){
     double Z95 = 3;  //or 1.64 / 1.96
     double ro = 2*sqrt(log(2))/Z95;
 
-    int count = 0;
+    int count = 0;  //count number of times volatility goes out of confidence interval
     int k = 0;
     
-    //////////
+    //save results
     ofstream myfile;
     myfile.open ("/Users/nkostoulas/Documents/xcode_/uncertainVolatilityModel/uncertainVolatilityModel/example.txt");
     
@@ -59,7 +59,7 @@ void stochasticVolatilityExample(){
     double timeToExp = T;
     double bsbLower_ = 0.0;
     double bsbLower = 0.0;
-    int d = 1; //decider
+    int d = 1; //1 for BSB, else for BS
     
     //**** Monte Carlo Simulation of Stock price and Volatility
     for(int PATH = 0; PATH < Npath; PATH++){
@@ -150,5 +150,6 @@ void stochasticVolatilityExample(){
         }
     }
     cout<<(double)100*count/(Npath*Nsim)<<"%"<<"\t";
+    myfile.close();
 }
 
