@@ -11,6 +11,15 @@
 BS::BS(double strP, double underlP, double expT, double currT, double r, double sigma):E(strP),S(underlP),T(expT),t(currT),r(r),sigma(sigma){
     d1 = (log(S/E)+(r+sigma*sigma/2)*(T-t))/(sigma*sqrt(T-t));
     d2 = (log(S/E)+(r-sigma*sigma/2)*(T-t))/(sigma*sqrt(T-t));
+    rd = r;
+    rf = r;
+    
+}
+
+BS::BS(double strP, double underlP, double expT, double currT, double rd, double rf, double sigma):E(strP),S(underlP),T(expT),t(currT),rd(rd), rf(rf),sigma(sigma){
+    d1 = (log(S/E)+(rd - rf +sigma*sigma/2)*(T-t))/(sigma*sqrt(T-t));
+    d2 = d1 - sigma*sqrt(T-t);
+    r = rd;
     
 }
 
@@ -61,6 +70,22 @@ double BS::putOptionPrice() const{
     double cdfn2 = normalCDF(-d2);
     
     return E*exp(-r*(T-t))*cdfn2 - S*cdfn1;
+}
+
+double BS::callFXOptionPrice() const{
+    
+    double cdfn1 = normalCDF(d1);
+    double cdfn2 = normalCDF(d2);
+    
+    return S*exp(-rf*(T-t))*cdfn1 - E*exp(-rd*(T-t))*cdfn2;
+}
+
+double BS::putFXOptionPrice() const{
+    
+    double cdfn1 = normalCDF(-d1);
+    double cdfn2 = normalCDF(-d2);
+    
+    return E*exp(-rd*(T-t))*cdfn2 - S*exp(-rf*(T-t))*cdfn1;
 }
 
 

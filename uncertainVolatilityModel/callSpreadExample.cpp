@@ -29,7 +29,7 @@ void callSpreadExample(){
     double sellStrike = 100;    // strike price of call option sold
     
     double T = 1; //years for trinomial tree
-    double N = 252; //periods per year for trinomial tree
+    double N = 100; //periods per year for trinomial tree
     
     int n = N*timeToExpiry; //number of periods
     double dt = T/N;        //percentage of year for each period
@@ -93,7 +93,7 @@ void callSpreadExample(){
         bsLow << lowerBuy.callOptionPrice() - lowerSell.callOptionPrice()<< "\n";
         bsHigh << upperBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
         
-        /*
+        
         cout<<S<<"   ";
         cout<<bsb.upperBound()<<" ";
         cout<<bsb.lowerBound()<<"  ";
@@ -101,7 +101,7 @@ void callSpreadExample(){
         cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
         cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
         cout<<"\n";
-        */
+        
     }
     for(int i = 0; i < n+1; ++i)
         delete [] F[i];
