@@ -15,6 +15,7 @@
 
 #define MRT_STEPS 1
 
+
 class BSB{
 private:
     double dt, sigmaMax, sigmaMin, r;

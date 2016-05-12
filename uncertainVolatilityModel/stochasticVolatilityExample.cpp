@@ -46,7 +46,7 @@ void stochasticVolatilityExample(){
     
     //save results
     ofstream myfile;
-    myfile.open ("/Users/nkostoulas/Documents/xcode_/uncertainVolatilityModel/uncertainVolatilityModel/example.txt");
+    myfile.open ("./data/stochVolData.txt");
     
     //Pricing parameters
     double r = 0.05;    //risk free interest rate
@@ -59,7 +59,7 @@ void stochasticVolatilityExample(){
     double timeToExp = T;
     double bsbLower_ = 0.0;
     double bsbLower = 0.0;
-    int d = 1; //1 for BSB, else for BS
+    int d = 2; //1 for BSB, else for BS
     
     //**** Monte Carlo Simulation of Stock price and Volatility
     for(int PATH = 0; PATH < Npath; PATH++){
@@ -151,5 +151,6 @@ void stochasticVolatilityExample(){
     }
     cout<<(double)100*count/(Npath*Nsim)<<"%"<<"\t";
     myfile.close();
+    system("sh scripts/stochVol_script.sh");
 }
 

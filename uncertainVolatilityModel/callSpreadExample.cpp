@@ -12,24 +12,29 @@ void callSpreadExample(){
     ofstream bsbBid("./data/bsbBidCall.txt");
     ofstream bsAsk("./data/bsAskCall.txt");
     ofstream bsBid("./data/bsBidCall.txt");
-    ofstream bsMid("./data/bsMidCall.txt");
+    ofstream bsMidl("./data/bsMidCall.txt");
     ofstream bsLow("./data/bsLowCall.txt");
     ofstream bsHigh("./data/bsHighCall.txt");
     ofstream prices("./data/pricesCall.txt");
     
+    cout<<"This program compares BS and BSB on a Bull Call Spread of 2 options. \n";
+    cout<<"Price\tBSUpper\tBSMid\tBSLower\tBSBLower\tBSBUpper\n";
+
     //*********** Basic Definitions *************************//
     double r = 0.05;    //risk free interest rate
-    double S = 90;      //current underlying asset price
+    double S = 85;      //current underlying asset price
     double smax = 0.4;  //maximum volatility
     double smin = 0.1;  //minimum volatility
     double smid = (smax+smin)/2;
+    
+    double bsUpper = 0.0, bsMid=0.0, bsLower=0.0, bsbUpper=0.0, bsbLower=0.0;
     
     double timeToExpiry = 0.5;  // time to expiry of call spread
     double buyStrike = 90;      // strike price of call option bought
     double sellStrike = 100;    // strike price of call option sold
     
     double T = 1; //years for trinomial tree
-    double N = 100; //periods per year for trinomial tree
+    double N = 252; //periods per year for trinomial tree
     
     int n = N*timeToExpiry; //number of periods
     double dt = T/N;        //percentage of year for each period
@@ -73,7 +78,9 @@ void callSpreadExample(){
         }
         //****************** BSB spread pricing ********//
         BSB bsb(n, dt, smax, smin, r, F);
-
+        bsbUpper = bsb.upperBound();
+        bsbLower = bsb.lowerBound();
+        
         //****************** Black Scholes spread pricing ********//
 
         BS upperBuy(buyStrike, S, timeToExpiry, timeToEval, r, smax);   //ASK
@@ -84,23 +91,20 @@ void callSpreadExample(){
         BS lowerSell(sellStrike, S, timeToExpiry, timeToEval, r, smin); //ASK
         BS midSell(sellStrike, S, timeToExpiry, timeToEval, r, smid);
         
+        bsUpper = upperBuy.callOptionPrice() - lowerSell.callOptionPrice();
+        bsMid = lowerBuy.callOptionPrice() - upperSell.callOptionPrice();
+        bsLower = midBuy.callOptionPrice() - midSell.callOptionPrice();
+        
         prices << S << "\n";
-        bsbAsk << bsb.upperBound() << "\n";
-        bsbBid << bsb.lowerBound() << "\n";
-        bsAsk << upperBuy.callOptionPrice() - lowerSell.callOptionPrice() << "\n";
-        bsBid << lowerBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
-        bsMid << midBuy.callOptionPrice() - midSell.callOptionPrice() << "\n";
+        bsbAsk << bsbUpper << "\n";
+        bsbBid << bsbLower << "\n";
+        bsAsk << bsUpper << "\n";
+        bsBid << bsLower << "\n";
+        bsMidl << bsMid << "\n";
         bsLow << lowerBuy.callOptionPrice() - lowerSell.callOptionPrice()<< "\n";
         bsHigh << upperBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
         
-        
-        cout<<S<<"   ";
-        cout<<bsb.upperBound()<<" ";
-        cout<<bsb.lowerBound()<<"  ";
-        cout<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<" ";
-        cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
-        cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
-        cout<<"\n";
+        cout<<S<<"\t"<<bsUpper<<"\t"<<bsMid<<"\t"<<bsLower<<"\t"<<bsbLower<<"\t"<<bsbUpper<<"\n";
         
     }
     for(int i = 0; i < n+1; ++i)
@@ -111,7 +115,7 @@ void callSpreadExample(){
     bsbBid.close();
     bsAsk.close();
     bsBid.close();
-    bsMid.close();
+    bsMidl.close();
     bsLow.close();
     bsHigh.close();
     prices.close();

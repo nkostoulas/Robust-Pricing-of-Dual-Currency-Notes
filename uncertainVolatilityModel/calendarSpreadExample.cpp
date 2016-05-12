@@ -12,8 +12,11 @@ void calendarSpreadExample(){
     ofstream bsbBid("./data/bsbBidClnd.txt");
     ofstream bsAsk("./data/bsAskClnd.txt");
     ofstream bsBid("./data/bsBidClnd.txt");
-    ofstream bsMid("./data/bsMidClnd.txt");
+    ofstream bsMidl("./data/bsMidClnd.txt");
     ofstream prices("./data/pricesClnd.txt");
+    
+    cout<<"This program compares BS and BSB on a Calendar Spread of 2 options. \n";
+    cout<<"Price\tBSUpper\tBSMid\tBSLower\tBSBLower\tBSBUpper\n";
     
     //*********** Basic Definitions *************************//
     double r = 0.05;    //risk free interest rate
@@ -21,6 +24,8 @@ void calendarSpreadExample(){
     double smax = 0.4;  //maximum volatility
     double smin = 0.1;  //minimum volatility
     double smid = (smax+smin)/2;
+    
+    double bsUpper = 0.0, bsMid=0.0, bsLower=0.0, bsbUpper=0.0, bsbLower=0.0;
     
     double timeToExpiry1 = 1;
     double timeToExpiry2 = 0.5;
@@ -82,6 +87,8 @@ void calendarSpreadExample(){
         
         //****************** BSB spread pricing ********//
         BSB bsb(n, dt, smax, smin, r, F);
+        bsbUpper = bsb.upperBound();
+        bsbLower = bsb.lowerBound();
         
         //****************** Black Scholes spread pricing ********//
         BS upperBuy(buyStrike, S, timeToExpiry1, timeToEval, r, smax);  //ASK
@@ -92,21 +99,19 @@ void calendarSpreadExample(){
         BS lowerSell(sellStrike, S, timeToExpiry2, timeToEval, r, smin); //ASK
         BS midSell(sellStrike, S, timeToExpiry2, timeToEval, r, smid);
         
+        bsUpper = upperBuy.callOptionPrice() - lowerSell.callOptionPrice();
+        bsMid = lowerBuy.callOptionPrice() - upperSell.callOptionPrice();
+        bsLower = midBuy.callOptionPrice() - midSell.callOptionPrice();
+        
         prices << S << "\n";
-        bsbAsk << bsb.upperBound() << "\n";
-        bsbBid << bsb.lowerBound() << "\n";
-        bsAsk << upperBuy.callOptionPrice() - lowerSell.callOptionPrice() << "\n";
-        bsBid << lowerBuy.callOptionPrice() - upperSell.callOptionPrice() << "\n";
-        bsMid << midBuy.callOptionPrice() - midSell.callOptionPrice() << "\n";
-        /*
-        cout<<S<<"   ";
-        cout<<bsb.upperBound()<<" ";
-        cout<<bsb.lowerBound()<<"  ";
-        cout<<upperBuy.callOptionPrice()-lowerSell.callOptionPrice()<<" ";
-        cout<<lowerBuy.callOptionPrice()-upperSell.callOptionPrice()<<"  ";
-        cout<<midBuy.callOptionPrice()-midSell.callOptionPrice();
-        cout<<"\n";
-         */
+        bsbAsk << bsbUpper << "\n";
+        bsbBid << bsbLower << "\n";
+        bsAsk <<  bsUpper<< "\n";
+        bsBid << bsMid << "\n";
+        bsMidl << bsLower << "\n";
+        
+        cout<<S<<"\t"<<bsUpper<<"\t"<<bsMid<<"\t"<<bsLower<<"\t"<<bsbLower<<"\t"<<bsbUpper<<"\n";
+        
     }
     for(int i = 0; i < n+1; ++i)
         delete [] F[i];
@@ -116,6 +121,6 @@ void calendarSpreadExample(){
     bsbBid.close();
     bsAsk.close();
     bsBid.close();
-    bsMid.close();
+    bsMidl.close();
     prices.close();
 }
