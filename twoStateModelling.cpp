@@ -11,13 +11,173 @@ struct priceArray{
     double upperValue;
     double lowerValue;
 };
-pair<double, double> findMaxValue(double d1, double d2, double d12, double smax1, double smax2, double smin1, double smin2)
-{
-    return std::make_pair(smax1, smax2);
+pair<double, double> findMaxValue(double d1, double d2, double d12, double smax1, double smax2, double smin1, double smin2, double corr){
+    if(d1*d2 - d12*d12==0){
+        return make_pair(smax1, smax2);
+    }
+    
+    d12 = d12*corr;
+    double max = -INT_MAX;
+    double val = 0.0;
+    double s1=smax1, s2=smax2;
+    double s1_return = smax1, s2_return=smax2;
+    
+    s1 = smax1;
+    s2 = smax2;
+    val = d1*s1*s1 + d12*s1*s2 + d2*s2*s2;
+    if(val > max){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    s1 = smin1;
+    s2 = smin2;
+    val = d1*s1*s1 + d12*s1*s2 + d2*s2*s2;
+    if(val > max){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smax1;
+    s2 = smin2;
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smin1;
+    s2 = smax2;
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smax1;
+    s2 = -d12/(s1*d2);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max && s2>=smin2 && s2<=smax2){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smin1;
+    s2 = -d12/(s1*d2);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max && s2>=smin2 && s2<=smax2){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s2 = smax2;
+    s1 = -d12/(s2*d1);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max && s1>=smin1 && s1<=smax1){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s2 = smin2;
+    s1 = -d12/(s2*d1);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val > max && s1>=smin1 && s1<=smax1){
+        max = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    return std::make_pair(s1_return, s2_return);
 }
-pair<double, double> findMinValue(double d1, double d2, double d12, double smax1, double smax2, double smin1, double smin2)
-{
-    return std::make_pair(smin1, smin2);
+pair<double, double> findMinValue(double d1, double d2, double d12, double smax1, double smax2, double smin1, double smin2, double corr){
+    if(d1*d2 - d12*d12==0){
+        return make_pair(smin1, smin2);
+    }
+    
+    d12 = d12*corr;
+    double min = INT_MAX;
+    double val = 0.0;
+    double s1=smin1, s2=smin2;
+    double s1_return = smin1, s2_return=smin2;
+    
+    s1 = smax1;
+    s2 = smax2;
+    val = d1*s1*s1 + d12*s1*s2 + d2*s2*s2;
+    if(val < min){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    s1 = smin1;
+    s2 = smin2;
+    val = d1*s1*s1 + d12*s1*s2 + d2*s2*s2;
+    if(val < min){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smax1;
+    s2 = smin2;
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smin1;
+    s2 = smax2;
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smax1;
+    s2 = -d12/(s1*d2);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min && s2>=smin2 && s2<=smax2){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s1 = smin1;
+    s2 = -d12/(s1*d2);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min && s2>=smin2 && s2<=smax2){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s2 = smax2;
+    s1 = -d12/(s2*d1);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min && s1>=smin1 && s1<=smax1){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    s2 = smin2;
+    s1 = -d12/(s2*d1);
+    val = d1*s1*s1 + 2*d12*s1*s2 + d2*s2*s2;
+    if(val < min && s1>=smin1 && s1<=smax1){
+        min = val;
+        s1_return = s1;
+        s2_return = s2;
+    }
+    
+    return std::make_pair(s1_return, s2_return);
 }
 
 void twoStateModelling(){
@@ -102,9 +262,9 @@ void twoStateModelling(){
                 double d2u = (Fu[i][j][k+1] - 2*Fu[i][j][k] + Fu[i][j][k-1]);
                 double d12u = (Fu[i][j+1][k+1] - Fu[i][j+1][k-1] - Fu[i][j-1][k+1] + Fu[i][j-1][k-1])/(4);
                 
-        
-                tie(s1,s2) = findMaxValue(d1u,d2u,d12u,smax1,smax2,smin1,smin2);
                 corr = 0.3;
+                tie(s1,s2) = findMaxValue(d1u,d2u,d12u,smax1,smax2,smin1,smin2,corr);
+                
                 
                 Fu[i+1][j][k] = (1-df)*Fu[i][j][k] + (0.5*s1*s1*j*j*dt)*d1u
                                                  + (0.5*s2*s2*k*k*dt)*d2u
@@ -117,8 +277,9 @@ void twoStateModelling(){
                 double d12l = (Fl[i][j+1][k+1] - Fl[i][j+1][k-1] - Fl[i][j-1][k+1] + Fl[i][j-1][k-1])/(4);
                 
                 
-                tie(s1,s2) = findMinValue(d1l,d2l,d12l,smax1,smax2,smin1,smin2);
                 corr = 0.5;
+                tie(s1,s2) = findMinValue(d1l,d2l,d12l,smax1,smax2,smin1,smin2,corr);
+                
                 
                 Fl[i+1][j][k] = (1-df)*Fl[i][j][k] + (0.5*s1*s1*j*j*dt)*d1l
                                                     + (0.5*s2*s2*k*k*dt)*d2l
