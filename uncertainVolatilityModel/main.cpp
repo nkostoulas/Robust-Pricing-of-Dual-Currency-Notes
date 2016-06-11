@@ -10,6 +10,10 @@
 #include "calendarSpreadExample.hpp"
 #include "stochasticVolatilityExample.hpp"
 #include "dualCurrencyNoteExample.hpp"
+#include "optionsFiniteDiff.hpp"
+#include "bsbFiniteDiff.hpp"
+#include "twoStateModelling.hpp"
+
 #include <iostream>
 #include <ctime>
 
@@ -19,15 +23,21 @@ int main(int argc, const char * argv[]) {
     clock_t begin = clock();
     
     // 1. Bull Spread and Calendar Spread on 2 options
-    callSpreadExample();
-    calendarSpreadExample();
-    system("sh scripts/uncVol_script.sh");
+    //callSpreadExample();
+    //calendarSpreadExample();
+    //system("sh scripts/uncVol_script.sh");
     
     // 2. Stoch vol hedging BSB vs BS
-    stochasticVolatilityExample();
+    //stochasticVolatilityExample();
     
     // 3. Pricing of dual currency notes
-    dualCurrencyNoteExample();
+    //dualCurrencyNoteExample();
+    
+    //optionsFiniteDiff();
+    
+    //bsbFiniteDiff();
+    
+    twoStateModelling();
     
     clock_t end = clock();
     double elapsed_secs = (double)(end - begin);

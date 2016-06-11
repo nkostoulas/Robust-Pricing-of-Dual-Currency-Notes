@@ -11,12 +11,12 @@
 void stochasticVolatilityExample(){
     //General Parameters
     const int Npath = 1000; //number of different stock/vol paths
-    const int Nsim = 10000; //number of simulations in each path
+    const int Nsim = 300; //number of simulations in each path
     const int Nhedge = 101; //number of hedges in a path
     
     double dtSIM = pow(Nsim,-1); //dt for stock/vol simulation
     
-    double T = 0.5;             //time horizon of hedging
+    double T = 1;             //time horizon of hedging
     int NsimYear = Nhedge/T;        //hedges per year
     double dtHEDGE = pow(NsimYear,-1);//dt for hedging
     int step = Nsim/(Nhedge-1);//number of stock simulations between each hedge
@@ -38,12 +38,11 @@ void stochasticVolatilityExample(){
     volSim[0] = 0.2;
     double a = log(2);
     double g = log(0.2);
-    double Z95 = 3;  //or 1.64 / 1.96
+    double Z95 = 3; //2.31;  //or 1.64 / 1.96
     double ro = 2*sqrt(log(2))/Z95;
 
     int count = 0;  //count number of times volatility goes out of confidence interval
-    int k = 0;
-    
+
     //save results
     ofstream myfile;
     myfile.open ("./data/stochVolData.txt");
@@ -135,8 +134,8 @@ void stochasticVolatilityExample(){
                     
                     double currPrice = currBuy.callOptionPrice() - currSell.callOptionPrice();
                     double avgPrice = avgBuy.callOptionPrice() - avgSell.callOptionPrice();
-                    //myfile<<avgPrice - currPrice<<"\n";
-                    
+                    myfile<<avgPrice - currPrice<<"\n";
+                    /*
                     if((avgPrice-currPrice)>=-0.1 && (avgPrice-currPrice)<=0.1){
                         if(k<0){
                             myfile<<avgPrice - currPrice<<"\n";
@@ -145,12 +144,13 @@ void stochasticVolatilityExample(){
                     }else{
                         myfile<<avgPrice - currPrice<<"\n";
                     }
+                     */
                 }
             }
         }
     }
     cout<<(double)100*count/(Npath*Nsim)<<"%"<<"\t";
     myfile.close();
-    system("sh scripts/stochVol_script.sh");
+    //system("sh scripts/stochVol_script.sh");
 }
 

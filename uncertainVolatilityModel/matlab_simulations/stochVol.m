@@ -4,7 +4,12 @@ fileID = fopen('../data/stochVolData.txt','r');
 %fileID = fopen('fig4_100000_data.txt', 'r');
 formatSpec = '%f';
 A = fscanf(fileID, formatSpec);
-histogram(A,'Normalization','pdf')  %pdf or probability
+histogram(A,'Normalization','Probability')  %pdf or probability
+title('Probability Distribution of Profit/Loss for BSB Delta Hedging');
+%title('Probability Distribution of Profit/Loss for BS Delta Hedging');
+xlabel('Profit/Loss');
+ylabel('Probability');
+
 %histfit(A)
 
 

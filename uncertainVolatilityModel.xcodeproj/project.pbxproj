@@ -11,6 +11,9 @@
 		4F180AC71CAFDA3B00065022 /* BSB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F180AC61CAFDA3B00065022 /* BSB.cpp */; settings = {ASSET_TAGS = (); }; };
 		4F180AC91CAFDC1E00065022 /* TrinomialTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F180AC81CAFDC1E00065022 /* TrinomialTree.cpp */; settings = {ASSET_TAGS = (); }; };
 		4F1C21F11CDA718C007249FE /* dualCurrencyNoteExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1C21EF1CDA718C007249FE /* dualCurrencyNoteExample.cpp */; settings = {ASSET_TAGS = (); }; };
+		4F34EAA81D0AC00700C73672 /* twoStateModelling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F34EAA61D0AC00700C73672 /* twoStateModelling.cpp */; settings = {ASSET_TAGS = (); }; };
+		4F4103611D085BA6006096C1 /* optionsFiniteDiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F41035F1D085BA6006096C1 /* optionsFiniteDiff.cpp */; settings = {ASSET_TAGS = (); }; };
+		4F4103641D087A43006096C1 /* bsbFiniteDiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F4103621D087A43006096C1 /* bsbFiniteDiff.cpp */; settings = {ASSET_TAGS = (); }; };
 		4F6362751CB7CF9D009B6BA1 /* stochasticVolatilityExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F6362731CB7CF9D009B6BA1 /* stochasticVolatilityExample.cpp */; settings = {ASSET_TAGS = (); }; };
 		4FD7229D1CB00B86009CCDCE /* callSpreadExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7229B1CB00B86009CCDCE /* callSpreadExample.cpp */; settings = {ASSET_TAGS = (); }; };
 		4FD722A01CB00CAC009CCDCE /* calendarSpreadExample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FD7229E1CB00CAC009CCDCE /* calendarSpreadExample.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -36,6 +39,12 @@
 		4F180AC81CAFDC1E00065022 /* TrinomialTree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TrinomialTree.cpp; sourceTree = "<group>"; };
 		4F1C21EF1CDA718C007249FE /* dualCurrencyNoteExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dualCurrencyNoteExample.cpp; sourceTree = "<group>"; };
 		4F1C21F01CDA718C007249FE /* dualCurrencyNoteExample.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dualCurrencyNoteExample.hpp; sourceTree = "<group>"; };
+		4F34EAA61D0AC00700C73672 /* twoStateModelling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = twoStateModelling.cpp; path = ../twoStateModelling.cpp; sourceTree = "<group>"; };
+		4F34EAA71D0AC00700C73672 /* twoStateModelling.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = twoStateModelling.hpp; path = ../twoStateModelling.hpp; sourceTree = "<group>"; };
+		4F41035F1D085BA6006096C1 /* optionsFiniteDiff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = optionsFiniteDiff.cpp; sourceTree = "<group>"; };
+		4F4103601D085BA6006096C1 /* optionsFiniteDiff.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = optionsFiniteDiff.hpp; sourceTree = "<group>"; };
+		4F4103621D087A43006096C1 /* bsbFiniteDiff.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bsbFiniteDiff.cpp; sourceTree = "<group>"; };
+		4F4103631D087A43006096C1 /* bsbFiniteDiff.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = bsbFiniteDiff.hpp; sourceTree = "<group>"; };
 		4F6362731CB7CF9D009B6BA1 /* stochasticVolatilityExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stochasticVolatilityExample.cpp; sourceTree = "<group>"; };
 		4F6362741CB7CF9D009B6BA1 /* stochasticVolatilityExample.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = stochasticVolatilityExample.hpp; sourceTree = "<group>"; };
 		4FD7229B1CB00B86009CCDCE /* callSpreadExample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = callSpreadExample.cpp; sourceTree = "<group>"; };
@@ -93,6 +102,12 @@
 				4F6362741CB7CF9D009B6BA1 /* stochasticVolatilityExample.hpp */,
 				4F1C21EF1CDA718C007249FE /* dualCurrencyNoteExample.cpp */,
 				4F1C21F01CDA718C007249FE /* dualCurrencyNoteExample.hpp */,
+				4F41035F1D085BA6006096C1 /* optionsFiniteDiff.cpp */,
+				4F4103601D085BA6006096C1 /* optionsFiniteDiff.hpp */,
+				4F4103621D087A43006096C1 /* bsbFiniteDiff.cpp */,
+				4F4103631D087A43006096C1 /* bsbFiniteDiff.hpp */,
+				4F34EAA61D0AC00700C73672 /* twoStateModelling.cpp */,
+				4F34EAA71D0AC00700C73672 /* twoStateModelling.hpp */,
 			);
 			path = uncertainVolatilityModel;
 			sourceTree = "<group>";
@@ -156,11 +171,14 @@
 				4F180AC71CAFDA3B00065022 /* BSB.cpp in Sources */,
 				4F6362751CB7CF9D009B6BA1 /* stochasticVolatilityExample.cpp in Sources */,
 				4FD722A01CB00CAC009CCDCE /* calendarSpreadExample.cpp in Sources */,
+				4F34EAA81D0AC00700C73672 /* twoStateModelling.cpp in Sources */,
+				4F4103611D085BA6006096C1 /* optionsFiniteDiff.cpp in Sources */,
 				4F180AC91CAFDC1E00065022 /* TrinomialTree.cpp in Sources */,
 				4F180AC51CAFCB0600065022 /* BS.cpp in Sources */,
 				4FF65F3F1CAE636F00A6E230 /* main.cpp in Sources */,
 				4FD7229D1CB00B86009CCDCE /* callSpreadExample.cpp in Sources */,
 				4F1C21F11CDA718C007249FE /* dualCurrencyNoteExample.cpp in Sources */,
+				4F4103641D087A43006096C1 /* bsbFiniteDiff.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

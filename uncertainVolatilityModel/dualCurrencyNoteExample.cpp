@@ -35,6 +35,11 @@ void dualCurrencyNoteExample(){
     double L0 = rf/FX0;
     double FXstrike1 = FX1*rd/rf;
     double L1 = rf/FX1;
+    
+    FXstrike0 = FX0;
+    L0 = 1;
+    FXstrike1 = FX1;
+    L1 = 1;
 
     double smax = 0.25;  //maximum volatility
     double smin = 0.05;  //minimum volatility

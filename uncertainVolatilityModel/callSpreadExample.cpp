@@ -29,7 +29,7 @@ void callSpreadExample(){
     
     double bsUpper = 0.0, bsMid=0.0, bsLower=0.0, bsbUpper=0.0, bsbLower=0.0;
     
-    double timeToExpiry = 0.5;  // time to expiry of call spread
+    double timeToExpiry = 1;  // time to expiry of call spread
     double buyStrike = 90;      // strike price of call option bought
     double sellStrike = 100;    // strike price of call option sold
     
@@ -92,8 +92,8 @@ void callSpreadExample(){
         BS midSell(sellStrike, S, timeToExpiry, timeToEval, r, smid);
         
         bsUpper = upperBuy.callOptionPrice() - lowerSell.callOptionPrice();
-        bsMid = lowerBuy.callOptionPrice() - upperSell.callOptionPrice();
-        bsLower = midBuy.callOptionPrice() - midSell.callOptionPrice();
+        bsLower = lowerBuy.callOptionPrice() - upperSell.callOptionPrice();
+        bsMid = midBuy.callOptionPrice() - midSell.callOptionPrice();
         
         prices << S << "\n";
         bsbAsk << bsbUpper << "\n";

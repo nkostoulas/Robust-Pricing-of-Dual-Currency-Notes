@@ -26,5 +26,8 @@ plot(prices, bsBid, '-.r')
 hold on
 plot(prices, bsMid, '-.b')
 hold on
-title('Dual Currency Note')
-legend('BSB ASK', 'BSB BID', 'BS ASK', 'BS BID', 'BS mid vol');
+%title('Pricing of a Bull Call Spread on PRDC notes')
+title('Pricing of a Calendar Spread on PRDC notes')
+legend('BSB Ask Price', 'BSB Bid Price', 'BS Ask Price', 'BS Bid Price', 'BS mid vol Price');
+xlabel('Underlying FX Price');
+ylabel('Derivative Price');

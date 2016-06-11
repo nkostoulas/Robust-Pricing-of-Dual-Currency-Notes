@@ -25,10 +25,12 @@ plot(prices, bsBid, '-.r')
 hold on
 plot(prices, bsMid, '-.b')
 hold on
-title('Bullish Call Spread')
-legend('BSB ASK', 'BSB BID', 'BS ASK', 'BS BID', 'BS mid vol');
+title('Pricing of a Bull Call Spread')
+legend('BSB Ask Price', 'BSB Bid Price', 'BS Ask Price', 'BS Bid Price', 'BS mid vol Price');
+xlabel('Underlying Asset Price');
+ylabel('Derivative Price');
 
-%% plot 3
+%% BSB,BS COMPARISON PLOT ON EXTREME VOL
 
 fileID6 = fopen('../data/bsLowCall.txt', 'r');
 fileID7 = fopen('../data/bsHighCall.txt', 'r');
@@ -45,8 +47,10 @@ hold on
 plot(prices, bsHigh, '-.r')
 hold on
 
-title('BSB vs BS')
-legend('BSB ASK', 'BSB BID', 'BS min vol', 'BS max vol');
+title('BSB and BS Comparison on extreme volatilities')
+legend('BSB Ask Price', 'BSB Bid Price', 'BS min vol Price', 'BS max vol Price');
+xlabel('Underlying Asset Price');
+ylabel('Derivative Price');
 
 
 %% CALENDAR SPREAD PLOT
@@ -75,8 +79,10 @@ plot(prices, bsBid, '-.r')
 hold on
 plot(prices, bsMid, '-.b')
 hold on
-title('Calendar Spread')
-legend('BSB ASK', 'BSB BID', 'BS ASK', 'BS BID', 'BS mid vol');
+title('Pricing of a Calendar Spread')
+legend('BSB Ask Price', 'BSB Bid Price', 'BS Ask Price', 'BS Bid Price', 'BS mid vol Price');
+xlabel('Underlying Asset Price');
+ylabel('Derivative Price');
 
 
 
