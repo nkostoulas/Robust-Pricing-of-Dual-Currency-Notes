@@ -13,7 +13,7 @@
 #include <cmath>
 #include <iostream>
 
-#define MRT_STEPS 1
+#define MRT_STEPS 2
 
 
 class BSB{

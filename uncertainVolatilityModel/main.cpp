@@ -36,8 +36,9 @@ int main(int argc, const char * argv[]) {
     //optionsFiniteDiff();
     
     //bsbFiniteDiff();
-    
+
     twoStateModelling();
+    
     
     clock_t end = clock();
     double elapsed_secs = (double)(end - begin);

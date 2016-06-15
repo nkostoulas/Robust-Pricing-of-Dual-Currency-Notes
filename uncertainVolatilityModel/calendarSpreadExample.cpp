@@ -67,20 +67,10 @@ void calendarSpreadExample(){
             for (int j=0; j<2*i+1; j++){
                 if (i==n){
                     price = tree.nodePrice(i, j-i);
-                    
-                    if(price>buyStrike){
-                        F[i][j] = price - buyStrike;
-                    }else{
-                        F[i][j] = 0;
-                    }
+                    F[i][j] = max(price - buyStrike, 0.0);
                 }else if(i==n/2){
                     price = tree.nodePrice(i, j-i);
-                    
-                    if(price>sellStrike){
-                        F[i][j] = -(price - sellStrike);
-                    }else{
-                        F[i][j] = 0;
-                    }
+                    F[i][j] = -max(price - sellStrike, 0.0);
                 }
             }
         }

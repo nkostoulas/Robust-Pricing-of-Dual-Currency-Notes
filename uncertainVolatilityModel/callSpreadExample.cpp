@@ -29,7 +29,7 @@ void callSpreadExample(){
     
     double bsUpper = 0.0, bsMid=0.0, bsLower=0.0, bsbUpper=0.0, bsbLower=0.0;
     
-    double timeToExpiry = 1;  // time to expiry of call spread
+    double timeToExpiry = 0.5;  // time to expiry of call spread
     double buyStrike = 90;      // strike price of call option bought
     double sellStrike = 100;    // strike price of call option sold
     
@@ -67,14 +67,7 @@ void callSpreadExample(){
         //***************** Call Spread Payoff Structure ******//
         for (int j=0; j<2*n+1; j++){
             price = tree.nodePrice(n, j-n);
-            if(price>buyStrike && price<=sellStrike){
-                F[n][j] = price - buyStrike;
-            }
-            else if(price>sellStrike){
-                F[n][j] = sellStrike - buyStrike;
-            }else{
-                F[n][j] = 0;
-            }
+            F[n][j] = max(price - buyStrike, 0.0) - max(price - sellStrike, 0.0);
         }
         //****************** BSB spread pricing ********//
         BSB bsb(n, dt, smax, smin, r, F);
