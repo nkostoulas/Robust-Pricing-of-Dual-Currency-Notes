@@ -13,6 +13,7 @@
 #include "optionsFiniteDiff.hpp"
 #include "bsbFiniteDiff.hpp"
 #include "twoStateModelling.hpp"
+#include "3AssetModelling.hpp"
 
 #include <iostream>
 #include <ctime>
@@ -38,7 +39,8 @@ int main(int argc, const char * argv[]) {
     //bsbFiniteDiff();
 
     twoStateModelling();
-    
+    //threeAssetModelling();
+
     
     clock_t end = clock();
     double elapsed_secs = (double)(end - begin);

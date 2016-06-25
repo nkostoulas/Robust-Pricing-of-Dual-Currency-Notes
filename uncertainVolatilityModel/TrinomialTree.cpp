@@ -8,6 +8,7 @@
 
 #include "TrinomialTree.hpp"
 
+//Initialise trinomial tree parameters with constructor
 TrinomialTree::TrinomialTree(double T_, double N_, double smax, double smin, double r_, double So_):T(T_),N(N_),sigmaMax(smax),sigmaMin(smin),r(r_),So(So_){
     dt = T/N;
     p_lower = pow(sigmaMin,2)/(2*pow(sigmaMax, 2));
@@ -20,10 +21,12 @@ TrinomialTree::~TrinomialTree(){
     
 }
 
+//Return trinomial tree value at node n,j (n:time, j:price level)
 double TrinomialTree::nodePrice(int n, int j) const{
     return So*exp(j*sigmaMax*sqrt(dt)+n*r*dt);
 }
 
+//Print trinomial tree
 void TrinomialTree::printTree() const{
     
      std::cout<<"Printing trinomial tree \n";
@@ -34,17 +37,4 @@ void TrinomialTree::printTree() const{
          std::cout<<"\n";
      }
 }
-
-double* TrinomialTree::nodeProbability(){
-    /*
-    double p = (lower + rand() % (upper - lower))*1e-6;
-    double* prob = new double[3];
-    prob[0] = p*(1-sigmaMax*sqrt(dt)/2);
-    prob[1] = 1 - 2*p;
-    prob[2] = p*(1+sigmaMax*sqrt(dt)/2);
-    return prob;
-     */
-    return 0;
-}
-
 

@@ -36,10 +36,10 @@ void dualCurrencyNoteExample(){
     double FXstrike1 = FX1*rd/rf;
     double L1 = rf/FX1;
     
-    FXstrike0 = FX0;
-    L0 = 1;
-    FXstrike1 = FX1;
-    L1 = 1;
+    //FXstrike0 = FX0;
+    //L0 = 1;
+    //FXstrike1 = FX1;
+    //L1 = 1;
 
     double smax = 0.25;  //maximum volatility
     double smin = 0.05;  //minimum volatility
@@ -178,10 +178,5 @@ void dualCurrencyNoteExample(){
     bsLow.close();
     prices.close();
     
-    system("sh scripts/dualCurr_script.sh");
-
-    
-    
-    
-    
+    system("sh scripts/dualCurr_script.sh");  
 }

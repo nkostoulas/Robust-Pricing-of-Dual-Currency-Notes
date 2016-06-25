@@ -9,8 +9,8 @@
 #include "bsbFiniteDiff.hpp"
 
 void bsbFiniteDiff(){
-    //*********** Basic Definitions *************************//
-    double r = 0.05;    //risk free interest rate
+    // Variable definitions
+    double r = 0.05;
     double smax = 0.4;
     double smin = 0.1;
     
@@ -23,25 +23,24 @@ void bsbFiniteDiff(){
     int NS = 200;
     int S0 = 0;
     
-    double dt = T/N;        //percentage of year for each period
+    double dt = T/N;
     
-    double timesExpiry = 4; //how many times expiry is Smax
+    double timesExpiry = 4;
     double dS = buyStrike/((NS-1)/timesExpiry);
     dS = 1;
-    
     
     double** F = new double*[N];
         for(int i = 0; i < N; ++i)
         F[i] = new double[NS];
     
-    // INITIALISE call spread example
+    // Initial and boudnary conditions
     for (int i=0; i<N; i++){
         for (int j=0; j<NS; j++){
             
-            if(i==0){       //at time 0 or time T equivalently calculate payoff
-                if(j==NS-1){    //upper bound
+            if(i==0){
+                if(j==NS-1){
                     F[i][j] = (sellStrike - buyStrike)*exp(-r*i*dt);
-                }else if(j==0){ //lower bound
+                }else if(j==0){
                     F[i][j] = 0;
                 }else{
                     if(S0+j*dS>buyStrike && S0+j*dS<=sellStrike){
@@ -53,19 +52,16 @@ void bsbFiniteDiff(){
                     }
                 }
             }else{
-                if(j==NS-1){    //upper boundary
+                if(j==NS-1){
                     F[i][j] = (sellStrike - buyStrike)*exp(-r*i*dt);
-                }else{          //lower boundary and all the rest initialised to 0
+                }else{
                     F[i][j] = 0;
                 }
             }
         }
     }
     
-    int plus = 0;
-    int minus = 0;
-    
-    // FINITE DIFFERENCE
+    // Explicit finite difference to calculate upper and lower bounds
     double b = r*dt;
     
     for(int i=0; i<N-1; i++){
@@ -74,24 +70,16 @@ void bsbFiniteDiff(){
             double s;
             if(gamma>=0){
                 s = smax;
-                plus += 1;
             }else{
                 s = smin;
-                minus += 1;
             }
             double a = s*s*dt;
             
             F[i+1][j] = 0.5*(a*j*j - b*j)*F[i][j-1] + (1-a*j*j-b)*F[i][j] + 0.5*(a*j*j + b*j)*F[i][j+1];
         }
     }
-    
-    std::cout<<plus<<" "<<minus<<"\n";
 
     for(int j=0; j<NS; j++){
         std::cout<<S0+j*dS<<"\t"<<F[N-1][j]<<"\n";
-    }
-    
-    
-    
-    
+    } 
 }

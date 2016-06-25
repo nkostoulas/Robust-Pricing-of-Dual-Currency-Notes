@@ -25,7 +25,6 @@ public:
     
     double nodePrice(int n, int j) const;
     void printTree() const;
-    double* nodeProbability();
 };
 
 

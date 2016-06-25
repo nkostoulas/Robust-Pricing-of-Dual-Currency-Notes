@@ -26,7 +26,7 @@ BS::BS(double strP, double underlP, double expT, double currT, double rd, double
 BS::~BS(){
     
 }
-
+//Standard normal CDF
 double BS::normalCDF(double x) const{
     double a1 =  0.254829592;
     double a2 = -0.284496736;

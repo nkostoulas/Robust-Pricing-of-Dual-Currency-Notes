@@ -14,17 +14,7 @@ BSB::BSB(int n_, double dt_, double smax, double smin, double r_, double** F_):n
 
 BSB::~BSB(){
 }
-/*
-double BSB::probU(double p){
-    return p*(1-sigmaMax*sqrt(dt)/2);
-}
-double BSB::probM(double p){
-    return 1 - 2*p;
-}
-double BSB::probD(double p){
-    return p*(1+sigmaMax*sqrt(dt)/2);
-}
-*/
+//Calculate supremum for given probability range
 double BSB::supremum(double U, double M, double D) const{
     double maxVal = 0, currVal = 0, p = 0;
     int maxind = 0;
@@ -39,7 +29,7 @@ double BSB::supremum(double U, double M, double D) const{
     }
     return maxVal;
 }
-
+//Calculate infinum for given probability range
 double BSB::infinum(double U, double M, double D) const{
     double minVal = 1e6, currVal = 0, p = 0;
     int minind = 0;
@@ -54,7 +44,7 @@ double BSB::infinum(double U, double M, double D) const{
     }
     return minVal;
 }
-
+//Calculate BSB upper bound based on a trinomial tree of cashflow dynamics
 double BSB::upperBound() const{
     double Wp[2*n+1][n+1];
     
@@ -69,7 +59,7 @@ double BSB::upperBound() const{
     }
     return Wp[0][0];
 }
-
+//Calculate BSB lower bound based on a trinomial tree of cashflow dynamics
 double BSB::lowerBound() const{
     double Wm[2*n+1][n+1];
     

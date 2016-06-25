@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <iostream>
-
+#include "BS.hpp"
 void optionsFiniteDiff();
 
 #endif /* optionsFiniteDiff_hpp */

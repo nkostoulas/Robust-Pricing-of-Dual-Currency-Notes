@@ -75,7 +75,6 @@ void stochasticVolatilityExample(){
                 count++;
             }
             
-           
             if((i+1)%step==0 && i!=Nsim-1){ //NO HEDGE AT TIME 0 and T
                 if(d==1){
                     TrinomialTree tree(1, per, smax, smin, r, stockSim[i]);
@@ -135,16 +134,7 @@ void stochasticVolatilityExample(){
                     double currPrice = currBuy.callOptionPrice() - currSell.callOptionPrice();
                     double avgPrice = avgBuy.callOptionPrice() - avgSell.callOptionPrice();
                     myfile<<avgPrice - currPrice<<"\n";
-                    /*
-                    if((avgPrice-currPrice)>=-0.1 && (avgPrice-currPrice)<=0.1){
-                        if(k<0){
-                            myfile<<avgPrice - currPrice<<"\n";
-                        }
-                        k--;
-                    }else{
-                        myfile<<avgPrice - currPrice<<"\n";
-                    }
-                     */
+
                 }
             }
         }

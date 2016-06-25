@@ -7,24 +7,23 @@
 //
 
 #include "optionsFiniteDiff.hpp"
-#include "BS.hpp"
 
 void optionsFiniteDiff(){
-    //*********** Basic Definitions *************************//
-    double r = 0.1;    //risk free interest rate
+    // Variable definitions
+    double r = 0.1;
     double s = 0.4;
     
     double timeToExpiry = 0.25;
     double buyStrike = 10;
     
     double T = timeToExpiry;
-    int N = 5;//7000;
-    int NS = 10;//201;
+    int N = 7000;
+    int NS = 201;
     int S0 = 0;
     
-    double dt = T/N;        //percentage of year for each period
+    double dt = T/N;
 
-    double timesExpiry = 4; //how many times expiry is Smax
+    double timesExpiry = 4;
     double dS = buyStrike/((NS-1)/timesExpiry);
     
     double** F = new double*[N];
@@ -32,7 +31,7 @@ void optionsFiniteDiff(){
     for(int i = 0; i < N; ++i)
         F[i] = new double[NS];
     
-    // INITIALISE
+    // Initial and Boundary Conditions
     for (int i=0; i<N; i++){
         for (int j=0; j<NS; j++){
             
@@ -55,13 +54,11 @@ void optionsFiniteDiff(){
                     F[i][j] = 0;
                 }
             }
-            std::cout<<F[i][j]<<"\t";
         }
-        std::cout<<"\n";
     }
     
     
-    // FINITE DIFFERENCE
+    // Explicit finite difference to calcualte option price
     for(int i=0; i<N-1; i++){
         for(int j=1; j<NS-1; j++){
             
@@ -73,9 +70,4 @@ void optionsFiniteDiff(){
         BS upperBuy(buyStrike, S0+j*dS, timeToExpiry, 0, r, s);
         std::cout<<S0+j*dS<<"\t"<<upperBuy.callOptionPrice()<<"\t"<<F[N-1][j]<<"\n";
     }
-    
-    
-    
-    
-    
 }
